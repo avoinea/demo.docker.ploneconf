@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.1-dev0 - (unreleased)
+1.1 - (2018-11-01)
 ---------------------
 * Automatically upgrade rancher-catalog entry [avoinea]
 
