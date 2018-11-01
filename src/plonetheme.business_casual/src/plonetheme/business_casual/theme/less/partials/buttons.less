@@ -1,0 +1,88 @@
+/* ==========================================================================
+   BUTTONS
+   ========================================================================== */
+
+
+
+
+/* Type: Submit
+   ========================================================================== */
+
+
+button.submit-widget,
+input[type="submit"],
+input[type="button"]{
+
+    background-color: @button-default;
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.3333333;
+    border-radius: 6px !important;
+    letter-spacing: 1px;
+    border: 0;
+    font-weight: 400;
+    margin-bottom: 10px;
+    text-shadow: none;
+    color: @white;
+    transition: all .2s ease-out;
+    box-shadow: none !important;
+
+    &:hover,
+    &:focus{
+
+        background-color: fadeout(@button-default, 10%);
+        border: 0;
+        outline: 0;
+        color: @white;
+    }
+}
+
+
+.context{
+
+    background-color: @white !important;
+    border: 1px solid @button-context !important;
+    margin-bottom: 10px;
+    color: @button-context !important;
+
+    &:hover,
+    &:focus{
+        background-color: fadeout(@button-context, 20%) !important;
+        border: 0;
+        outline: 0;
+        color: @white !important;
+    }
+}
+
+.plone-btn-primary,
+.standalone{
+
+    background-color: @white !important;
+    border: 1px solid @gray-light !important;
+    margin-bottom: 10px;
+    color: @button-standalone !important;
+
+    &:hover,
+    &:focus{
+        background-color: fadeout(@gray-light, 50%) !important;
+        border: 0;
+        outline: 0;
+        color: @button-standalone !important;
+    }
+}
+
+.destructive{
+
+    background-color: @white !important;
+    border: 1px solid @button-destructive !important;
+    margin-bottom: 10px;
+    color: @button-destructive !important;
+
+    &:hover,
+    &:focus{
+        background-color: fadeout(@button-destructive, 20%) !important;
+        border: 0;
+        outline: 0;
+        color: @white !important;
+    }
+}
