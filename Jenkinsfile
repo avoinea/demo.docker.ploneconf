@@ -48,8 +48,8 @@ pipeline {
           "Plone5": {
             node(label: 'docker') {
               checkout scm
-              sh '''docker build -t ${BUILD_TAG} .'''
-              sh '''docker run -i --rm ${BUILD_TAG} bin/test'''
+              sh '''docker build -t ${BUILD_TAG,,} .'''
+              sh '''docker run -i --rm ${BUILD_TAG,,} bin/test'''
             }
           }
         )
