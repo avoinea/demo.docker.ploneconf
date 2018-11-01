@@ -44,15 +44,18 @@ pipeline {
 
     stage('Build & Test') {
       steps {
-        parallel(
-          "Plone5": {
-            node(label: 'docker') {
+        node(label: 'docker') {
+          script {
+            try {
               checkout scm
               sh '''docker build -t ${BUILD_TAG,,} .'''
-              sh '''docker run -i --rm ${BUILD_TAG,,} bin/test'''
+              sh '''docker run -i --name ${BUILD_TAG,,} ${BUILD_TAG,,} bin/test'''
+            } finally {
+              sh '''docker rm -v ${BUILD_TAG,,}'''
+              sh '''docker rmi ${BUILD_TAG,,}'''
             }
           }
-        )
+        }
       }
     }
 
