@@ -1,6 +1,9 @@
 Changelog
 =========
 
+1.3-dev0 - (unreleased)
+---------------------
+
 1.2 - (2018-11-01)
 ---------------------
 * Fix pipeline upgrade step [avoinea]
