@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.2 - (2018-11-01)
+---------------------
+* Fix pipeline upgrade step [avoinea]
+
 1.1 - (2018-11-01)
 ---------------------
 * Automatically upgrade rancher-catalog entry [avoinea]

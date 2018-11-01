@@ -114,8 +114,8 @@ pipeline {
         node(label: 'docker') {
           withCredentials([string(credentialsId: 'eea-jenkins-token', variable: 'GITHUB_TOKEN')]) {
             checkout scm
-            sh '''docker run -i --rm -e DOCKER_IMAGENAME="$DOCKER_IMAGENAME" -e DOCKER_IMAGEVERSION="$(cat $GIT_VERSIONFILE)" eeacms/gitflow /dockerhub_release_wait.sh $DOCKER_IMAGENAME $DOCKER_IMAGEVERSION'''
-            sh '''docker run -i --rm -e -e GIT_NAME="$GIT_NAME" -e GIT_ORG="$GIT_ORG" -e GIT_TOKEN="$GITHUB_TOKEN" -e DOCKER_IMAGENAME="$DOCKER_IMAGENAME" -e DOCKER_IMAGEVERSION="$(cat $GIT_VERSIONFILE)" -e RANCHER_CATALOG_GITNAME="$RANCHER_CATALOG_GITNAME" -e RANCHER_CATALOG_PATH="$RANCHER_CATALOG_PATH" -e RANCHER_CATALOG_NEXT_VERSION="true" eeacms/gitflow /add_rancher_catalog_entry.sh'''
+            sh '''docker run -i --rm --entrypoint="/dockerhub_release_wait.sh" eeacms/gitflow $DOCKER_IMAGENAME $(cat $GIT_VERSIONFILE)'''
+            sh '''docker run -i --rm -e -e GIT_NAME="$GIT_NAME" -e GIT_ORG="$GIT_ORG" -e GIT_TOKEN="$GITHUB_TOKEN" -e DOCKER_IMAGENAME="$DOCKER_IMAGENAME" -e DOCKER_IMAGEVERSION="$(cat $GIT_VERSIONFILE)" -e RANCHER_CATALOG_GITNAME="$RANCHER_CATALOG_GITNAME" -e RANCHER_CATALOG_PATH="$RANCHER_CATALOG_PATH" -e RANCHER_CATALOG_NEXT_VERSION="true" --entrypoint="/add_rancher_catalog_entry.sh" eeacms/gitflow'''
           }
         }
       }
