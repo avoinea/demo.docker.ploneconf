@@ -49,7 +49,7 @@ pipeline {
             node(label: 'docker') {
               checkout scm
               sh '''docker build -t ${BUILD_TAG} .'''
-              sh '''docker run -i --rm ${BUILD_TAG} bin/test --test-path /plone/instance/src/plonetheme.business_casual -s plonetheme.business_casual'''
+              sh '''docker run -i --rm ${BUILD_TAG} bin/test'''
             }
           }
         )
