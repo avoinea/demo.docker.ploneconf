@@ -1,6 +1,9 @@
 Changelog
 =========
 
+1.4-dev0 - (unreleased)
+---------------------
+
 1.3 - (2018-11-01)
 ---------------------
 * Fix pipeline typo [avoinea]
