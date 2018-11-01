@@ -6,6 +6,9 @@ pipeline {
         GIT_NAME = "demo.docker.ploneconf"
         GIT_VERSIONFILE = "version.txt"
         GIT_HISTORYFILE = "CHANGES.rst"
+        DOCKER_IMAGENAME = "avoinea/plone-demo"
+        RANCHER_CATALOG_GITNAME = "avoinea.rancher.catalog"
+        RANCHER_CATALOG_PATH = "templates/plone-demo"
     }
 
   stages {
@@ -95,6 +98,24 @@ pipeline {
         node(label: 'docker') {
           withCredentials([string(credentialsId: 'eea-jenkins-token', variable: 'GITHUB_TOKEN')]) {
             sh '''docker run -i --rm -e GIT_BRANCH="$BRANCH_NAME" -e GIT_NAME="$GIT_NAME" -e GIT_ORG="$GIT_ORG" -e GIT_TOKEN="$GITHUB_TOKEN" -e GIT_VERSIONFILE="$GIT_VERSIONFILE" -e GIT_HISTORYFILE="$GIT_HISTORYFILE" eeacms/gitflow'''
+          }
+        }
+      }
+    }
+
+    stage('Upgrade') {
+      when {
+        allOf {
+          environment name: 'CHANGE_ID', value: ''
+          branch 'master'
+        }
+      }
+      steps {
+        node(label: 'docker') {
+          withCredentials([string(credentialsId: 'eea-jenkins-token', variable: 'GITHUB_TOKEN')]) {
+            checkout scm
+            sh '''docker run -i --rm -e DOCKER_IMAGENAME="$DOCKER_IMAGENAME" -e DOCKER_IMAGEVERSION="$(cat $GIT_VERSIONFILE)" eeacms/gitflow /dockerhub_release_wait.sh $DOCKER_IMAGENAME $DOCKER_IMAGEVERSION'''
+            sh '''docker run -i --rm -e -e GIT_NAME="$GIT_NAME" -e GIT_ORG="$GIT_ORG" -e GIT_TOKEN="$GITHUB_TOKEN" -e DOCKER_IMAGENAME="$DOCKER_IMAGENAME" -e DOCKER_IMAGEVERSION="$(cat $GIT_VERSIONFILE)" -e RANCHER_CATALOG_GITNAME="$RANCHER_CATALOG_GITNAME" -e RANCHER_CATALOG_PATH="$RANCHER_CATALOG_PATH" -e RANCHER_CATALOG_NEXT_VERSION="true" eeacms/gitflow /add_rancher_catalog_entry.sh'''
           }
         }
       }
