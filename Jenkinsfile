@@ -14,28 +14,28 @@ pipeline {
           "ZPT Lint": {
             node(label: 'docker') {
               checkout scm
-              sh '''docker run -i --rm --name="$BUILD_TAG-zptlint" -v $(pwd):/plone/instance/src/$GIT_NAME eeacms/plone-test:4 zptlint'''
+              sh '''docker run -i --rm -v $(pwd):/code eeacms/zptlint'''
             }
           },
 
           "JS Lint": {
             node(label: 'docker') {
               checkout scm
-              sh '''docker run -i --rm --name="$BUILD_TAG-jslint" -v $(pwd):/code eeacms/jslint4java'''
+              sh '''docker run -i --rm -v $(pwd):/code eeacms/jslint4java'''
             }
           },
 
           "PyFlakes": {
             node(label: 'docker') {
               checkout scm
-              sh '''docker run -i --rm --name="$BUILD_TAG-pyflakes" -v $(pwd):/code eeacms/pyflakes'''
+              sh '''docker run -i --rm -v $(pwd):/code eeacms/pyflakes'''
             }
           },
 
           "i18n": {
             node(label: 'docker') {
               checkout scm
-              sh '''docker run -i --rm --name="$BUILD_TAG-i18n" -v $(pwd):/code eeacms/i18ndude'''
+              sh '''docker run -i --rm -v $(pwd):/code eeacms/i18ndude'''
             }
           }
         )
@@ -49,7 +49,7 @@ pipeline {
             node(label: 'docker') {
               checkout scm
               sh '''docker build -t ${BUILD_TAG} .'''
-              sh '''docker run -i --rm --name=${BUILD_TAG} ${BUILD_TAG} bin/test --test-path /plone/instance/src/plonetheme.business_casual -s plonetheme.business_casual'''
+              sh '''docker run -i --rm ${BUILD_TAG} bin/test --test-path /plone/instance/src/plonetheme.business_casual -s plonetheme.business_casual'''
             }
           }
         )
