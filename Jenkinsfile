@@ -48,11 +48,11 @@ pipeline {
           script {
             try {
               checkout scm
-              sh '''docker build -t ${BUILD_TAG,,} .'''
-              sh '''docker run -i --name ${BUILD_TAG,,} ${BUILD_TAG,,} bin/test'''
+              sh '''docker build -t demo-${BUILD_NUMBER} .'''
+              sh '''docker run -i --name demo-${BUILD_NUMBER} demo-${BUILD_NUMBER} bin/test'''
             } finally {
-              sh '''docker rm -v ${BUILD_TAG,,}'''
-              sh '''docker rmi ${BUILD_TAG,,}'''
+              sh '''docker rm -v demo-${BUILD_NUMBER}'''
+              sh '''docker rmi demo-${BUILD_NUMBER}'''
             }
           }
         }
