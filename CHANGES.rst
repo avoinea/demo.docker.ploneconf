@@ -1,6 +1,10 @@
 Changelog
 =========
 
+1.4 - (2018-11-02)
+---------------------
+* Update theme background [avoinea]
+
 1.3 - (2018-11-01)
 ---------------------
 * Fix pipeline typo [avoinea]
