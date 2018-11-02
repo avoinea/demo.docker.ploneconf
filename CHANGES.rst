@@ -1,6 +1,9 @@
 Changelog
 =========
 
+1.5-dev0 - (unreleased)
+---------------------
+
 1.4 - (2018-11-02)
 ---------------------
 * Update theme background [avoinea]
